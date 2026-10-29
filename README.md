@@ -17,15 +17,15 @@ privato a parte.
 
 | | |
 |---|---|
-| `aggiornamento.json` | il manifest che l'apparecchio legge, ogni sei ore |
-| *Releases* | i binari, uno per versione, come allegati |
+| *Releases* | ogni versione porta il binario **e** il suo `manifest.json` |
+| `channel-beta` | una release fissa: il suo manifest punta sempre all'ultima versione, anche di prova |
 
 ## Il manifest
 
 ```json
 {
   "version": "2.1.0",
-  "url": "https://github.com/danielemichelotti/poweralert-esp32-ota/releases/download/v2.1.0/power_monitor_esp32.ino.bin",
+  "url": "https://github.com/danielemichelotti/poweralert-esp32-firmware/releases/download/v2.1.0/power_monitor_esp32.ino.bin",
   "notes": "Che cosa cambia, in una riga.",
   "size": 1234567,
   "sha256": "…"
@@ -44,7 +44,7 @@ stesso, che rifiuta un'immagine troncata o non valida.
 ## L'indirizzo da mettere nell'apparecchio
 
 ```
-https://raw.githubusercontent.com/danielemichelotti/poweralert-esp32-ota/main/aggiornamento.json
+https://github.com/danielemichelotti/poweralert-esp32-firmware/releases/latest/download/manifest.json
 ```
 
 ## Come si pubblica una versione
@@ -57,5 +57,5 @@ python strumenti/pubblica_firmware.py percorso/del/power_monitor_esp32.ino.bin
 
 Lo script legge la versione da `config.h` — che è l'unica fonte di verità —
 crea la release, carica il binario e riscrive questo manifest. Non si modifica
-`aggiornamento.json` a mano: una versione scritta qui che non esiste come
+il manifest a mano: una versione scritta qui che non esiste come
 release manda ogni apparecchio a scaricare un indirizzo che risponde 404.
